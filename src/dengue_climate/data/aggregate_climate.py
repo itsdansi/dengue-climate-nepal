@@ -22,10 +22,24 @@ from dengue_climate.viz.plots import plot_rainfall_seasonality
 
 
 def load_daily(path) -> pd.DataFrame:
-    """Read the daily climate CSV with only the columns we aggregate."""
+    """Read the daily climate CSV, merging in the re-fetched supplement if present.
+
+    The raw export is missing 2022–2024 for some districts; if
+    ``fetch_missing_climate`` has produced a supplement in ``data/interim``, its
+    rows are unioned in (raw wins on any overlap).
+    """
     cfg = load_config()["climate"]
     usecols = ["Date", "District", *cfg["sum_vars"], *cfg["mean_vars"]]
     df = pd.read_csv(path, usecols=usecols, parse_dates=["Date"])
+
+    supplement = get_path("climate_refetch")
+    if supplement.exists():
+        extra = pd.read_csv(supplement, usecols=usecols, parse_dates=["Date"])
+        before = len(df)
+        df = pd.concat([df, extra], ignore_index=True)
+        df = df.drop_duplicates(["District", "Date"], keep="first")
+        print(f"  merged {len(df) - before} re-fetched daily rows from {supplement.name}")
+
     df["year"] = df["Date"].dt.year
     df["month"] = df["Date"].dt.month
     return df

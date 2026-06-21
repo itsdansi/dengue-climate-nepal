@@ -18,6 +18,7 @@ climate:
 
 paths:
   climate_raw: data/raw/climate/nasa_power.csv
+  climate_refetch: data/interim/climate_missing_refetch.csv
   climate_monthly: data/processed/climate_monthly.csv
   dengue_raw: data/raw/dengue/opendengue_nepal.csv
   dengue_monthly: data/processed/dengue_monthly.csv
