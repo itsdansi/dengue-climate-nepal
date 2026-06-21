@@ -1,0 +1,20 @@
+# Dengue × Climate in Nepal — study configuration.
+# Single source of truth for study years, seasonal windows, aggregation rules,
+# and file paths. Loaded via src/dengue_climate/config.py.
+
+seasons:
+  monsoon: [6, 7, 8, 9]            # Jun–Sep
+  winter: [12, 1, 2]              # Dec–Feb
+
+# Daily → monthly aggregation rules.
+climate:
+  sum_vars: [Precip]                                  # rainfall accumulates
+  mean_vars: [Temp_2m, MaxTemp_2m, MinTemp_2m, RH_2m, Humidity_2m]
+  # A month needs at least this fraction of its days present to be kept.
+  min_days_fraction: 0.8
+
+paths:
+  climate_raw: data/raw/climate/nasa_power.csv
+  climate_monthly: data/processed/climate_monthly.csv
+  figures: outputs/figures
+  tables: outputs/tables

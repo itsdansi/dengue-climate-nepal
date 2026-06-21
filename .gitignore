@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# macOS
+.DS_Store
+
+# Generated, reproducible artifacts (regenerated from raw by the pipeline)
+data/processed/
+outputs/
