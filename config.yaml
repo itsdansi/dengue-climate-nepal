@@ -2,6 +2,9 @@
 # Single source of truth for study years, seasonal windows, aggregation rules,
 # and file paths. Loaded via src/dengue_climate/config.py.
 
+study:
+  years: [2022, 2023, 2024]        # three outbreak seasons used for analysis
+
 seasons:
   monsoon: [6, 7, 8, 9]            # Jun–Sep
   winter: [12, 1, 2]              # Dec–Feb
@@ -16,5 +19,7 @@ climate:
 paths:
   climate_raw: data/raw/climate/nasa_power.csv
   climate_monthly: data/processed/climate_monthly.csv
+  dengue_raw: data/raw/dengue/opendengue_nepal.csv
+  dengue_monthly: data/processed/dengue_monthly.csv
   figures: outputs/figures
   tables: outputs/tables
