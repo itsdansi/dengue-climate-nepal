@@ -9,6 +9,7 @@ seasons:
   monsoon: [6, 7, 8, 9]            # Jun–Sep
   winter: [12, 1, 2]              # Dec–Feb
 
+
 # Daily → monthly aggregation rules.
 climate:
   sum_vars: [Precip]                                  # rainfall accumulates
@@ -22,5 +23,7 @@ paths:
   climate_monthly: data/processed/climate_monthly.csv
   dengue_raw: data/raw/dengue/opendengue_nepal.csv
   dengue_monthly: data/processed/dengue_monthly.csv
+  district_elevation: data/raw/reference/district_elevation.csv
+  analysis_panel: data/processed/analysis_panel.csv
   figures: outputs/figures
   tables: outputs/tables

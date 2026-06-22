@@ -15,3 +15,6 @@ wheels/
 # Generated, reproducible artifacts (regenerated from raw by the pipeline)
 data/processed/
 outputs/
+
+# Local planning doc — not part of the shared codebase
+*.md

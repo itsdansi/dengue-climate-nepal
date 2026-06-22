@@ -5,8 +5,6 @@ differently. We treat the climate spellings as canonical and map the dengue
 variants onto them, so the two tables join cleanly on ``district`` in Phase 3.
 """
 
-from __future__ import annotations
-
 import pandas as pd
 
 # {variant spelling : canonical spelling}. Canonical = the climate file's names.

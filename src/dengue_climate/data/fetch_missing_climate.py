@@ -7,8 +7,6 @@ coordinates already present in the raw file, and writes the supplement to
 ``data/interim/climate_missing_refetch.csv``. Raw stays immutable; Phase 1's
 aggregation merges this supplement in.
 
-Run:
-    uv run python -m dengue_climate.data.fetch_missing_climate
 """
 
 import pandas as pd
@@ -43,7 +41,9 @@ def find_missing_districts(raw: pd.DataFrame, years: list[int]) -> pd.DataFrame:
     return coords
 
 
-def fetch_district(district: str, lat: float, lon: float, start: str, end: str) -> pd.DataFrame:
+def fetch_district(
+    district: str, lat: float, lon: float, start: str, end: str
+) -> pd.DataFrame:
     """Fetch one district's daily climate for the given date range."""
     resp = requests.get(
         API_URL,
@@ -80,7 +80,7 @@ def main() -> None:
         parse_dates=["Date"],
     )
     coords = find_missing_districts(raw, years)
-    print(f"districts missing {min(years)}–{max(years)}: {len(coords)}")
+    print(f"districts missing {min(years)}-{max(years)}: {len(coords)}")
 
     frames = []
     for district, row in coords.iterrows():
@@ -100,8 +100,10 @@ def main() -> None:
     out_path = get_path("climate_refetch")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(out_path, index=False)
-    print(f"\nwrote {out_path.relative_to(PROJECT_ROOT)} "
-          f"({len(out)} rows, {out['District'].nunique()} districts)")
+    print(
+        f"\nwrote {out_path.relative_to(PROJECT_ROOT)} "
+        f"({len(out)} rows, {out['District'].nunique()} districts)"
+    )
 
 
 if __name__ == "__main__":

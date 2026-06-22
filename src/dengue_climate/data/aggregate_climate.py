@@ -1,4 +1,4 @@
-"""Phase 1 — aggregate daily NASA POWER climate to monthly per district.
+"""Aggregate daily NASA POWER climate to monthly per district.
 
 Reads the precip-fixed daily CSV, collapses it to one row per
 (district, year, month) — summing rainfall, averaging temperature/humidity —
@@ -7,11 +7,7 @@ and writes ``data/processed/climate_monthly.csv``.
 It also prints a monsoon-vs-winter rainfall sanity check (monsoon must be
 clearly higher).
 
-Run:
-    uv run python -m dengue_climate.data.aggregate_climate
 """
-
-from __future__ import annotations
 
 import calendar
 
@@ -24,7 +20,7 @@ from dengue_climate.viz.plots import plot_rainfall_seasonality
 def load_daily(path) -> pd.DataFrame:
     """Read the daily climate CSV, merging in the re-fetched supplement if present.
 
-    The raw export is missing 2022–2024 for some districts; if
+    The raw export is missing 2022-2024 for some districts; if
     ``fetch_missing_climate`` has produced a supplement in ``data/interim``, its
     rows are unioned in (raw wins on any overlap).
     """
@@ -38,7 +34,9 @@ def load_daily(path) -> pd.DataFrame:
         before = len(df)
         df = pd.concat([df, extra], ignore_index=True)
         df = df.drop_duplicates(["District", "Date"], keep="first")
-        print(f"  merged {len(df) - before} re-fetched daily rows from {supplement.name}")
+        print(
+            f"  merged {len(df) - before} re-fetched daily rows from {supplement.name}"
+        )
 
     df["year"] = df["Date"].dt.year
     df["month"] = df["Date"].dt.month
@@ -73,7 +71,7 @@ def aggregate_monthly(daily: pd.DataFrame) -> pd.DataFrame:
         )
     monthly = monthly[keep].reset_index(drop=True)
 
-    # Round to the raw input's 2-decimal precision so the CSV stays readable.
+    # Round to the raw input's 2-decimal precision.
     value_cols = cfg["sum_vars"] + cfg["mean_vars"]
     monthly[value_cols] = monthly[value_cols].round(2)
 
@@ -90,10 +88,10 @@ def validate_seasonality(monthly: pd.DataFrame) -> None:
     winter = precip.loc[precip["month"].isin(seasons["winter"]), "Precip"].mean()
 
     print("\n=== Seasonality sanity check ===")
-    print(f"mean monthly rainfall — monsoon (Jun–Sep): {monsoon:7.1f} mm")
-    print(f"mean monthly rainfall — winter (Dec–Feb): {winter:7.1f} mm")
+    print(f"mean monthly rainfall — monsoon (Jun-Sep): {monsoon:7.1f} mm")
+    print(f"mean monthly rainfall — winter (Dec-Feb): {winter:7.1f} mm")
     ratio = monsoon / winter if winter else float("inf")
-    print(f"monsoon / winter ratio: {ratio:.1f}×")
+    print(f"monsoon / winter ratio: {ratio:.1f}*")
     if monsoon <= winter:
         raise AssertionError(
             "Monsoon rainfall is not higher than winter — aggregation is wrong."

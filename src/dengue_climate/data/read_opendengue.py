@@ -1,4 +1,4 @@
-"""Phase 2 — build the monthly district dengue panel from OpenDengue.
+"""Build the monthly district dengue panel from OpenDengue.
 
 OpenDengue is used as the single source (EDCD PDF extraction is skipped — a
 sanctioned simplification since 2025 is out of scope). The raw Nepal export
@@ -9,11 +9,7 @@ the study years, tidy the columns, and write
 Because we trust this one source, we keep a few cheap sanity asserts — not heavy
 verification, just insurance that the file loaded as expected.
 
-Run:
-    uv run python -m dengue_climate.data.read_opendengue
 """
-
-from __future__ import annotations
 
 import pandas as pd
 

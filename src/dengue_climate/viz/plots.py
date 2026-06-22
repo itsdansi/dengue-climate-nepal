@@ -1,7 +1,5 @@
 """Plotting helpers for the dengue × climate pipeline."""
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib
@@ -51,7 +49,7 @@ def plot_rainfall_seasonality(monthly, out_path: Path, districts=None) -> Path:
         d = cycle[cycle["district"] == district].sort_values("month")
         ax.plot(d["month"], d["Precip"], marker="o", label=district)
 
-    ax.axvspan(6, 9, color="tab:blue", alpha=0.08, label="monsoon (Jun–Sep)")
+    ax.axvspan(6, 9, color="tab:blue", alpha=0.08, label="monsoon (Jun-Sep)")
     ax.set_xticks(range(1, 13))
     ax.set_xticklabels(MONTHS)
     ax.set_xlabel("month")
@@ -71,7 +69,7 @@ def plot_dengue_national_trend(panel, out_path: Path) -> Path:
     """Plot the national monthly dengue curve, one line per study year.
 
     Cases are summed across all districts per month, so the seasonal outbreak
-    shape (the Jul–Oct surge) is visible and comparable across years.
+    shape (the Jul-Oct surge) is visible and comparable across years.
     """
     national = panel.groupby(["Year", "Month"])["cases"].sum().reset_index()
 
@@ -80,7 +78,7 @@ def plot_dengue_national_trend(panel, out_path: Path) -> Path:
         d = national[national["Year"] == year].sort_values("Month")
         ax.plot(d["Month"], d["cases"], marker="o", label=str(year))
 
-    ax.axvspan(7, 10, color="tab:red", alpha=0.07, label="outbreak (Jul–Oct)")
+    ax.axvspan(7, 10, color="tab:red", alpha=0.07, label="outbreak (Jul-Oct)")
     ax.set_xticks(range(1, 13))
     ax.set_xticklabels(MONTHS)
     ax.set_xlabel("month")

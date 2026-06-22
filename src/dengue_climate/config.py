@@ -4,8 +4,6 @@ Paths are resolved to absolute paths anchored at the project root so callers
 do not depend on the current working directory.
 """
 
-from __future__ import annotations
-
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
