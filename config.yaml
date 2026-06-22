@@ -27,3 +27,4 @@ paths:
   analysis_panel: data/processed/analysis_panel.csv
   figures: outputs/figures
   tables: outputs/tables
+  reports: reports

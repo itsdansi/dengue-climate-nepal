@@ -28,3 +28,8 @@ packages = ["src/dengue_climate"]
 dev = [
     "ruff>=0.15.18",
 ]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+extraPaths = ["src"]
