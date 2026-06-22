@@ -46,3 +46,27 @@ climate variable. It reads the artifacts produced by the pipeline above, so run
 ```
 uv run python -m streamlit run dashboard/app.py
 ```
+
+## Findings
+
+The written analysis lives in [reports/final_report.md](reports/final_report.md)
+(questions, results, and limitations) and
+[reports/eda_findings.md](reports/eda_findings.md) (exploratory detail). The
+notebooks under `notebooks/` walk through the EDA, lag, and modelling steps
+interactively.
+
+## Project layout
+
+```
+src/dengue_climate/   pipeline + analysis package
+  data/               ingest, normalize, aggregate sources
+  analysis/           EDA, lag analysis, model
+  viz/                figure functions
+notebooks/            EDA, lag, and model notebooks
+dashboard/            Streamlit dashboard (app.py)
+data/                 raw inputs, interim, processed panel
+outputs/              generated figures + summary tables
+reports/              written findings
+config.yaml           study years, seasons, aggregation rules, paths
+main.py               pipeline dispatcher
+```
