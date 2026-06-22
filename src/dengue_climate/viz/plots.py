@@ -278,11 +278,11 @@ def plot_cases_distribution(panel, out_path: Path) -> Path:
 
 
 def plot_lag_correlation(corr_table, best, out_path: Path) -> Path:
-    """Pooled correlation of cases vs each climate variable at lags 0–4 months.
+    """Pooled correlation of cases vs each climate variable at lags 0-4 months.
 
     One line per variable; the dominant lag (largest |r|) is marked so the
     headline "climate leads cases by ~k months" reads straight off the figure.
-    Per-band detail lives in the printed/​saved best-lag table, not here.
+    Per-band detail lives in the printed/saved best-lag table, not here.
     """
     pooled = corr_table[corr_table["band"] == "All"]
     best_all = best[best["band"] == "All"].set_index("variable")
@@ -303,6 +303,37 @@ def plot_lag_correlation(corr_table, best, out_path: Path) -> Path:
     ax.set_title("How far climate leads dengue cases (pooled, 77 districts)")
     ax.grid(True, alpha=0.3)
     ax.legend(title="climate variable", fontsize=9)
+
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+    return out_path
+
+
+def plot_predicted_vs_actual(monthly, out_path: Path) -> Path:
+    """National 2024 monthly cases: actual vs the model and calendar baseline.
+
+    The test year was never seen in training, so this shows whether the climate
+    model captures the real Jul-Oct peak's timing and height better than a model
+    that knows only the calendar.
+    """
+    m = monthly.sort_values("month")
+    x = m["month"]
+
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.plot(x, m["cases"], color="black", marker="o", lw=2, label="actual 2024")
+    ax.plot(x, m["pred_full"], color="tab:red", marker="s", lw=1.8,
+            label="climate + elevation")
+    ax.plot(x, m["pred_base"], color="tab:gray", ls="--", marker="^", lw=1.5,
+            label="calendar baseline")
+
+    ax.set_xticks(range(1, 13), MONTHS)
+    ax.set_xlabel("month of 2024")
+    ax.set_ylabel("national cases (sum over 77 districts)")
+    ax.set_title("Out-of-sample 2024 forecast vs actual")
+    ax.grid(True, alpha=0.3)
+    ax.legend()
 
     fig.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
