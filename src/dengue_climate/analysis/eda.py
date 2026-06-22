@@ -1,4 +1,4 @@
-"""Phase 4 — exploratory data analysis on the unified panel.
+"""Exploratory data analysis on the unified panel.
 
 Reads ``data/processed/analysis_panel.csv`` and produces the EDA artifacts:
 figures in ``outputs/figures/``, a printed report, and a written findings note
@@ -6,7 +6,7 @@ figures in ``outputs/figures/``, a printed report, and a written findings note
 typed by hand, so the narrative always matches the data it describes.
 
 No modeling happens here — overdispersion and correlations are only measured, to
-justify the negative-binomial choice and the climate lag explored in Phase 5.
+justify the negative-binomial choice and the climate lag explored separately.
 """
 
 import pandas as pd
@@ -141,8 +141,8 @@ By band (does the climate–cases link change with elevation?):
 
 The strongest single contemporaneous association is **{strongest}**
 (r = {overall_corr[strongest]:g}). Same-month correlations are modest, which is
-expected: climate is thought to *lead* cases by 1–2 months — quantified in
-Phase 5, not here.
+expected: climate is thought to *lead* cases by 1–2 months — quantified in the
+lag analysis, not here.
 
 ## 4. Distribution & overdispersion
 
@@ -150,16 +150,16 @@ Phase 5, not here.
 
 Monthly counts are **zero-heavy** ({zero:g}% of district-months are zero) and
 **overdispersed**: the variance is {ratio:g}× the mean overall. This rules out
-Poisson and motivates the **negative-binomial** model planned for Phase 6.
+Poisson and motivates the **negative-binomial** model used downstream.
 
 ## 5. Implications for modeling
 
 - Use a **negative-binomial** GLM (overdispersion above).
-- Test **lagged** climate predictors (same-month r is weak) — Phase 5.
+- Test **lagged** climate predictors (same-month r is weak; see the lag analysis).
 - Keep an **elevation-band × climate** interaction: the per-band correlations
   above differ, hinting the climate response is not uniform across the gradient.
 - No anomalies found that require new cleaning rules; the panel is complete
-  (no nulls, expected row count) from Phase 3.
+  (no nulls, expected row count) from the panel build.
 """
     out_path = get_path("reports") / "eda_findings.md"
     out_path.parent.mkdir(parents=True, exist_ok=True)

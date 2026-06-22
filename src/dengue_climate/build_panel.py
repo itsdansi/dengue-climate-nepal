@@ -11,7 +11,7 @@ import pandas as pd
 
 from dengue_climate.config import PROJECT_ROOT, get_path, load_config
 
-# Final column order (the schema every later phase reads).
+# Final column order (the schema every downstream step reads).
 PANEL_COLUMNS = [
     "district",
     "province",

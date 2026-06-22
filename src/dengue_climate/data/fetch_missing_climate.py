@@ -4,8 +4,8 @@ The raw NASA POWER export is missing 2022-2024 for ~15 districts (only a
 download artifact — the data exists at source). This pulls those district-years
 back from the NASA POWER daily-point API, using each district's own grid
 coordinates already present in the raw file, and writes the supplement to
-``data/interim/climate_missing_refetch.csv``. Raw stays immutable; Phase 1's
-aggregation merges this supplement in.
+``data/interim/climate_missing_refetch.csv``. Raw stays immutable; the
+daily-to-monthly aggregation merges this supplement in.
 
 """
 

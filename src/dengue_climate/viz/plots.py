@@ -275,3 +275,37 @@ def plot_cases_distribution(panel, out_path: Path) -> Path:
     fig.savefig(out_path, dpi=150)
     plt.close(fig)
     return out_path
+
+
+def plot_lag_correlation(corr_table, best, out_path: Path) -> Path:
+    """Pooled correlation of cases vs each climate variable at lags 0–4 months.
+
+    One line per variable; the dominant lag (largest |r|) is marked so the
+    headline "climate leads cases by ~k months" reads straight off the figure.
+    Per-band detail lives in the printed/​saved best-lag table, not here.
+    """
+    pooled = corr_table[corr_table["band"] == "All"]
+    best_all = best[best["band"] == "All"].set_index("variable")
+
+    fig, ax = plt.subplots(figsize=(8, 5.5))
+    for var, grp in pooled.groupby("variable"):
+        grp = grp.sort_values("lag")
+        line, = ax.plot(grp["lag"], grp["r"], marker="o", label=var)
+        if var in best_all.index:
+            lag, r = best_all.loc[var, "lag"], best_all.loc[var, "r"]
+            ax.scatter([lag], [r], s=140, facecolors="none",
+                       edgecolors=line.get_color(), linewidths=2, zorder=5)
+
+    ax.axhline(0, color="gray", lw=0.8)
+    ax.set_xticks(sorted(pooled["lag"].unique()))
+    ax.set_xlabel("lag (months climate leads cases)")
+    ax.set_ylabel("Pearson r with monthly cases")
+    ax.set_title("How far climate leads dengue cases (pooled, 77 districts)")
+    ax.grid(True, alpha=0.3)
+    ax.legend(title="climate variable", fontsize=9)
+
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+    return out_path

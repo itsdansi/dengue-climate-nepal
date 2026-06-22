@@ -2,7 +2,7 @@
 
 The dengue (OpenDengue) and climate (NASA POWER) sources spell some districts
 differently. We treat the climate spellings as canonical and map the dengue
-variants onto them, so the two tables join cleanly on ``district`` in Phase 3.
+variants onto them, so the two tables join cleanly on ``district``.
 """
 
 import pandas as pd
