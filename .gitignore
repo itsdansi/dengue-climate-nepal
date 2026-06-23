@@ -14,4 +14,4 @@ wheels/
 
 # Generated, reproducible artifacts (regenerated from raw by the pipeline)
 data/processed/
-outputs/
+# outputs/

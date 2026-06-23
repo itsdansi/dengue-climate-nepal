@@ -1,0 +1,4 @@
+elevation_band,districts,rows,mean_cases,mean_precip,mean_temp,mean_humidity
+Hill,40,1440,64.6,126.2,17.2,67.8
+Mountain,16,576,11.4,108.5,9.0,71.2
+Terai,21,756,54.0,124.2,24.5,63.0

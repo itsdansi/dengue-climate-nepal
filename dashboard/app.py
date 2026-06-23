@@ -79,7 +79,7 @@ def overview_tab(panel: pd.DataFrame) -> None:
 
     st.caption(
         f"{panel['province'].nunique()} provinces · "
-        f"{panel['year'].min()}–{panel['year'].max()} · monthly resolution"
+        f"{panel['year'].min()}-{panel['year'].max()} · monthly resolution"
     )
 
     show_figure("dengue_national_trend")

@@ -51,7 +51,7 @@ def build_frame() -> pd.DataFrame:
 
 
 def split(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Train = 2022–2023, test = 2024 — the out-of-sample forecast split."""
+    """Train = 2022-2023, test = 2024 — the out-of-sample forecast split."""
     train = frame[frame["year"].isin(TRAIN_YEARS)].copy()
     test = frame[frame["year"] == TEST_YEAR].copy()
     return train, test

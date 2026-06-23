@@ -1,0 +1,24 @@
+term,irr,ci_low,ci_high,p_value
+Intercept,1.318,0.727,2.39,0.363
+"C(elevation_band, Treatment('Terai'))[T.Hill]",2.137,1.336,3.418,0.002
+"C(elevation_band, Treatment('Terai'))[T.Mountain]",1.33,0.713,2.481,0.369
+C(month)[T.2],2.057,1.037,4.082,0.039
+C(month)[T.3],2.04,1.056,3.942,0.034
+C(month)[T.4],1.678,0.89,3.162,0.11
+C(month)[T.5],1.071,0.546,2.099,0.842
+C(month)[T.6],2.664,1.418,5.005,0.002
+C(month)[T.7],7.955,4.117,15.369,0.0
+C(month)[T.8],9.201,3.916,21.621,0.0
+C(month)[T.9],20.351,8.124,50.985,0.0
+C(month)[T.10],15.111,5.798,39.388,0.0
+C(month)[T.11],5.05,2.29,11.138,0.0
+C(month)[T.12],1.319,0.687,2.533,0.405
+precip_lag2,0.755,0.523,1.09,0.133
+"precip_lag2:C(elevation_band, Treatment('Terai'))[T.Hill]",1.656,1.097,2.498,0.016
+"precip_lag2:C(elevation_band, Treatment('Terai'))[T.Mountain]",1.87,1.144,3.056,0.012
+temp_min_lag2,5.83,3.462,9.818,0.0
+"temp_min_lag2:C(elevation_band, Treatment('Terai'))[T.Hill]",0.648,0.383,1.096,0.106
+"temp_min_lag2:C(elevation_band, Treatment('Terai'))[T.Mountain]",0.202,0.119,0.344,0.0
+humidity_lag1,1.635,1.152,2.321,0.006
+"humidity_lag1:C(elevation_band, Treatment('Terai'))[T.Hill]",0.87,0.585,1.293,0.49
+"humidity_lag1:C(elevation_band, Treatment('Terai'))[T.Mountain]",0.529,0.317,0.883,0.015
